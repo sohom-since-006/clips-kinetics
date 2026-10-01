@@ -87,23 +87,23 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Column: 3D Light Bulb + Profile Portrait */}
-          <div className="lg:col-span-5 relative flex items-center justify-center mt-4 lg:mt-0">
+          {/* Right Column: 3D Interactive Play Button + Profile Portrait */}
+          <div className="lg:col-span-5 relative flex items-center justify-center mt-6 lg:mt-0">
             
-            {/* 3D Interactive Crystal Play Logo Canvas */}
+            {/* 3D Interactive Play Button Canvas */}
             <div className="w-full relative z-10 flex items-center justify-center">
               <Logo3DScene />
             </div>
 
             {/* Circular Profile Portrait overlapping lower area */}
-            <div className="absolute -bottom-2 right-2 sm:bottom-0 sm:right-6 lg:-bottom-4 lg:right-2 z-20 group">
-              <div className="relative w-24 h-24 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-full border-2 border-accent p-1 bg-bg-surface shadow-amber-glow transition-transform duration-300 group-hover:scale-105">
+            <div className="absolute -bottom-2 right-1 sm:bottom-0 sm:right-4 lg:-bottom-4 lg:right-0 z-20 group">
+              <div className="relative w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full border-2 border-accent p-1 bg-bg-surface shadow-amber-glow transition-transform duration-300 group-hover:scale-105">
                 <div className="relative w-full h-full rounded-full overflow-hidden">
                   <Image
                     src="/images/sohom-paul.webp"
                     alt="Sohom Paul, freelance video editor"
                     fill
-                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 144px, 176px"
+                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 160px"
                     priority
                     className="object-cover object-top"
                   />

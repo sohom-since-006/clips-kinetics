@@ -6,251 +6,248 @@ import * as THREE from 'three';
 import Logo3DFallback from './Logo3DFallback';
 
 /**
- * Procedural Crystal Play Button 3D Logo
- * Faithfully mirrors the reference image:
- * - Faceted translucent amber crystal prism
- * - Glowing inner neon play triangle core
- * - Dynamic trailing timeline / light stream ribbons
- * - Brushed titanium pedestal platform
+ * Premium 3D Interactive Play Button
+ * 
+ * Aesthetic:
+ * - High-end luxury hardware feel: brushed dark obsidian bezel with champagne gold trim
+ * - Precision-faceted optical crystal glass lens with realistic refraction & dispersion
+ * - Deep glowing neon amber Play Triangle core (turns ON/OFF on click with spring recoil)
+ * - Fine concentric orbital glow halo ring
+ * - Smooth pointer tilt with physics damping
  */
-function CrystalPlayLogo({ isLit, onToggleLit }) {
+function PlayButtonMesh({ isLit, onToggle }) {
   const groupRef = useRef();
-  const lightRef = useRef();
-  const innerCoreRef = useRef();
+  const coreRef = useRef();
+  const pointLightRef = useRef();
+  const haloRef = useRef();
   const targetRotation = useRef({ x: 0, y: 0 });
+  const [pressed, setPressed] = useState(false);
   const [pulse, setPulse] = useState(0);
 
-  // Outer Faceted Crystal Play Shape
-  const outerShape = useMemo(() => {
+  // Precision 3D Play Triangle Shape (Smooth, perfectly balanced proportions)
+  const playShape = useMemo(() => {
     const s = new THREE.Shape();
-    // Beveled, symmetrical right-pointing triangle
-    s.moveTo(-0.85, -1.05);
-    s.lineTo(1.15, 0);
-    s.lineTo(-0.85, 1.05);
+    const w = 0.65;
+    const h = 0.8;
+    // Right-facing triangle with gentle apex
+    s.moveTo(-w * 0.55, -h * 0.5);
+    s.lineTo(w * 0.7, 0);
+    s.lineTo(-w * 0.55, h * 0.5);
     s.closePath();
     return s;
   }, []);
 
-  // Inner Core Glowing Play Shape
-  const innerShape = useMemo(() => {
-    const s = new THREE.Shape();
-    s.moveTo(-0.45, -0.55);
-    s.lineTo(0.65, 0);
-    s.lineTo(-0.45, 0.55);
-    s.closePath();
-    return s;
-  }, []);
-
-  // Timeline Stream Trails (Cinematic ribbons extending from behind the logo)
-  const ribbonCurves = useMemo(() => {
-    const ribbons = [];
-    const ribbonConfigs = [
-      { y: 0.25, z: -0.4, length: 3.5, color: '#FAC775', opacity: 0.85 },
-      { y: 0.0, z: -0.6, length: 4.2, color: '#EF9F27', opacity: 0.95 },
-      { y: -0.22, z: -0.3, length: 3.8, color: '#5DCAA5', opacity: 0.65 },
-      { y: 0.45, z: -0.7, length: 3.0, color: '#FAC775', opacity: 0.5 },
-      { y: -0.45, z: -0.5, length: 3.4, color: '#EF9F27', opacity: 0.6 },
-    ];
-
-    ribbonConfigs.forEach((cfg) => {
-      const points = [];
-      const steps = 30;
-      for (let i = 0; i <= steps; i++) {
-        const t = i / steps;
-        // Curve extending backward to the left
-        const x = -0.5 - t * cfg.length;
-        const waveY = cfg.y + Math.sin(t * Math.PI * 2) * 0.08;
-        const waveZ = cfg.z + Math.cos(t * Math.PI * 1.5) * 0.12;
-        points.push(new THREE.Vector3(x, waveY, waveZ));
-      }
-      const curve = new THREE.CatmullRomCurve3(points);
-      ribbons.push({ curve, ...cfg });
-    });
-
-    return ribbons;
-  }, []);
-
-  // Frame Loop: Smooth pointer tilt, floating levitation, and light animation
+  // Frame Loop: Smooth mouse tilt, idle levitation, and light recoil animation
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    // Pointer-based tilt with smooth damping
-    const mouseX = state.pointer.x * 0.4;
-    const mouseY = -state.pointer.y * 0.35;
+    // Pointer-based tilt with smooth damping (lerp)
+    const mouseX = state.pointer.x * 0.35;
+    const mouseY = -state.pointer.y * 0.3;
 
-    targetRotation.current.x = THREE.MathUtils.lerp(targetRotation.current.x, mouseY, 0.07);
-    targetRotation.current.y = THREE.MathUtils.lerp(targetRotation.current.y, mouseX, 0.07);
+    targetRotation.current.x = THREE.MathUtils.lerp(targetRotation.current.x, mouseY, 0.08);
+    targetRotation.current.y = THREE.MathUtils.lerp(targetRotation.current.y, mouseX, 0.08);
 
-    // Floating idle oscillation
+    // Subtle gentle float
     const time = state.clock.getElapsedTime();
-    const idleY = Math.sin(time * 1.4) * 0.06;
-    const idleRotZ = Math.sin(time * 0.8) * 0.02;
+    const idleY = Math.sin(time * 1.5) * 0.04;
+    const idleZRot = Math.sin(time * 0.8) * 0.015;
 
+    // Apply rotation & position with press depression
+    const targetZ = pressed ? -0.15 : 0;
+    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetZ, 0.2);
+    groupRef.current.position.y = idleY;
     groupRef.current.rotation.x = targetRotation.current.x;
     groupRef.current.rotation.y = targetRotation.current.y;
-    groupRef.current.rotation.z = idleRotZ;
-    groupRef.current.position.y = idleY;
+    groupRef.current.rotation.z = idleZRot;
 
-    // Pulse decay after click
-    if (pulse > 0) {
-      setPulse((p) => Math.max(0, p - delta * 2.5));
+    // Slowly rotate outer halo ring
+    if (haloRef.current) {
+      haloRef.current.rotation.z = time * 0.25;
     }
 
-    // Dynamic light & inner core pulse
-    if (lightRef.current) {
-      const baseIntensity = isLit ? 3.8 : 0.8;
-      const targetIntensity = baseIntensity + pulse * 5.0;
-      lightRef.current.intensity = THREE.MathUtils.lerp(
-        lightRef.current.intensity,
+    // Decay pulse
+    if (pulse > 0) {
+      setPulse((p) => Math.max(0, p - delta * 3.0));
+    }
+
+    // Dynamic light & emission responsiveness
+    if (pointLightRef.current) {
+      const targetIntensity = isLit ? 3.5 + pulse * 4.0 : 0.2;
+      pointLightRef.current.intensity = THREE.MathUtils.lerp(
+        pointLightRef.current.intensity,
         targetIntensity,
-        0.1
+        0.15
       );
     }
 
-    if (innerCoreRef.current) {
-      const baseEmissive = isLit ? 2.5 : 0.3;
-      innerCoreRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(
-        innerCoreRef.current.material.emissiveIntensity,
-        baseEmissive + pulse * 3.0,
-        0.1
+    if (coreRef.current) {
+      const baseEmissive = isLit ? 2.6 : 0.25;
+      const targetEmissive = baseEmissive + pulse * 2.5;
+      coreRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(
+        coreRef.current.material.emissiveIntensity,
+        targetEmissive,
+        0.15
       );
     }
   });
 
-  const handleClick = (e) => {
+  const handlePointerDown = (e) => {
     e.stopPropagation();
-    setPulse(1.4);
-    if (onToggleLit) onToggleLit();
+    setPressed(true);
+    setPulse(1.5);
+  };
+
+  const handlePointerUp = (e) => {
+    e.stopPropagation();
+    setPressed(false);
+    if (onToggle) onToggle();
   };
 
   return (
     <group
       ref={groupRef}
-      onClick={handleClick}
-      onPointerDown={() => setPulse(1.0)}
-      scale={[1.15, 1.15, 1.15]}
-      position={[0, 0.1, 0]}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      scale={[0.95, 0.95, 0.95]}
+      position={[0, 0, 0]}
     >
-      {/* Internal warm golden point light */}
+      {/* Dynamic Warm Golden Core Light */}
       <pointLight
-        ref={lightRef}
-        color="#FAC775"
-        intensity={3.8}
-        distance={9}
+        ref={pointLightRef}
+        color={isLit ? "#FFB834" : "#442A08"}
+        intensity={isLit ? 3.5 : 0.2}
+        distance={7}
         decay={2}
-        position={[0.1, 0, 0.2]}
+        position={[0.1, 0, 0.35]}
       />
 
-      {/* 1. Outer Faceted Crystal Glass Play Prism */}
-      <mesh position={[0, 0, 0]}>
-        <extrudeGeometry
-          args={[
-            outerShape,
-            {
-              depth: 0.36,
-              bevelEnabled: true,
-              bevelSegments: 4,
-              steps: 2,
-              bevelSize: 0.12,
-              bevelThickness: 0.16,
-            },
-          ]}
+      {/* 1. Outer Chassis: Precision Dark Obsidian Housing Disk */}
+      <mesh position={[0, 0, -0.15]}>
+        <cylinderGeometry args={[1.35, 1.4, 0.24, 64]} />
+        <meshStandardMaterial
+          color="#16151B"
+          roughness={0.25}
+          metalness={0.92}
         />
+      </mesh>
+
+      {/* 2. Champagne Gold Bezel Trim Ring */}
+      <mesh position={[0, 0, -0.01]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[1.32, 0.045, 24, 64]} />
+        <meshStandardMaterial
+          color={isLit ? "#EF9F27" : "#55442A"}
+          emissive={isLit ? "#854F0B" : "#1A1408"}
+          emissiveIntensity={isLit ? 0.4 + pulse * 0.5 : 0.05}
+          roughness={0.18}
+          metalness={0.95}
+        />
+      </mesh>
+
+      {/* 3. Deep Optical Glass Lens Dome (Faceted Chamfer Front) */}
+      <mesh position={[0, 0, 0.04]}>
+        <cylinderGeometry args={[1.22, 1.25, 0.16, 64]} />
         <meshPhysicalMaterial
-          color={isLit ? "#EF9F27" : "#322A20"}
-          emissive={isLit ? "#854F0B" : "#110D05"}
-          emissiveIntensity={isLit ? 0.35 + pulse * 0.4 : 0.05}
-          roughness={0.08}
-          metalness={0.15}
-          transmission={0.82}
-          thickness={1.1}
-          ior={1.54}
+          color={isLit ? "#281E10" : "#100E14"}
+          emissive={isLit ? "#523207" : "#050406"}
+          emissiveIntensity={isLit ? 0.25 : 0.02}
+          roughness={0.06}
+          metalness={0.12}
+          transmission={0.88}
+          thickness={0.9}
+          ior={1.52}
           reflectivity={0.9}
           clearcoat={1.0}
-          clearcoatRoughness={0.1}
+          clearcoatRoughness={0.05}
           transparent={true}
           opacity={0.92}
         />
       </mesh>
 
-      {/* 2. Inner Glowing Neon Play Core */}
-      <mesh ref={innerCoreRef} position={[0.08, 0, 0.22]}>
+      {/* 4. Glowing Neon Amber Play Triangle Core */}
+      <mesh ref={coreRef} position={[0.06, 0, 0.15]}>
         <extrudeGeometry
           args={[
-            innerShape,
+            playShape,
             {
-              depth: 0.08,
+              depth: 0.12,
               bevelEnabled: true,
-              bevelSegments: 3,
-              bevelSize: 0.03,
-              bevelThickness: 0.03,
+              bevelSegments: 4,
+              steps: 2,
+              bevelSize: 0.04,
+              bevelThickness: 0.04,
             },
           ]}
         />
         <meshStandardMaterial
-          color="#FAC775"
-          emissive="#FAC775"
-          emissiveIntensity={2.5}
-          roughness={0.15}
-          metalness={0.6}
+          color={isLit ? "#FFC466" : "#4A3215"}
+          emissive={isLit ? "#FF9E1B" : "#1A1005"}
+          emissiveIntensity={isLit ? 2.6 : 0.25}
+          roughness={0.12}
+          metalness={0.5}
         />
       </mesh>
 
-      {/* 3. Golden Core Edge Rim Highlight */}
-      <lineSegments position={[0.08, 0, 0.24]}>
-        <edgesGeometry args={[new THREE.ExtrudeGeometry(innerShape, { depth: 0.08, bevelEnabled: false })]} />
-        <lineBasicMaterial color="#FFFFFF" linewidth={2} transparent opacity={0.8} />
+      {/* 5. Precision Diamond Edge Outline on the Play Button */}
+      <lineSegments position={[0.06, 0, 0.28]}>
+        <edgesGeometry
+          args={[
+            new THREE.ExtrudeGeometry(playShape, {
+              depth: 0.02,
+              bevelEnabled: false,
+            }),
+          ]}
+        />
+        <lineBasicMaterial
+          color={isLit ? "#FFFFFF" : "#665544"}
+          linewidth={2}
+          transparent
+          opacity={isLit ? 0.9 : 0.3}
+        />
       </lineSegments>
 
-      {/* 4. Cinematic Light Stream / Timeline Ribbons */}
-      <group position={[0, 0, 0]}>
-        {ribbonCurves.map((ribbon, idx) => (
-          <mesh key={idx}>
-            <tubeGeometry args={[ribbon.curve, 40, 0.02, 8, false]} />
-            <meshStandardMaterial
-              color={ribbon.color}
-              emissive={ribbon.color}
-              emissiveIntensity={isLit ? 1.8 + pulse * 1.0 : 0.3}
-              roughness={0.2}
-              transparent
-              opacity={ribbon.opacity}
-            />
-          </mesh>
-        ))}
+      {/* 6. Orbital Accent Halo Ring */}
+      <group ref={haloRef} position={[0, 0, -0.05]}>
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[1.58, 0.015, 16, 64]} />
+          <meshStandardMaterial
+            color="#FAC775"
+            emissive="#FAC775"
+            emissiveIntensity={isLit ? 1.4 + pulse * 1.5 : 0.15}
+            transparent
+            opacity={isLit ? 0.75 : 0.2}
+            roughness={0.3}
+          />
+        </mesh>
+        {/* Subtle satellite accent bead on halo */}
+        <mesh position={[1.58, 0, 0]}>
+          <sphereGeometry args={[0.04, 16, 16]} />
+          <meshBasicMaterial color="#FFFFFF" />
+        </mesh>
       </group>
 
-      {/* 5. Sleek Brushed Metal Pedestal Platform */}
-      <group position={[0, -1.35, 0]}>
-        {/* Main Base Bar */}
-        <mesh position={[0, 0.05, 0]}>
-          <boxGeometry args={[2.2, 0.08, 0.9]} />
-          <meshStandardMaterial color="#2E2E38" metalness={0.88} roughness={0.25} />
-        </mesh>
-        {/* Lower Foot Stand */}
-        <mesh position={[0, -0.04, 0]}>
-          <boxGeometry args={[2.5, 0.06, 1.1]} />
-          <meshStandardMaterial color="#1B1B22" metalness={0.92} roughness={0.35} />
-        </mesh>
-        {/* Connecting Support Pin */}
-        <mesh position={[-0.1, 0.18, 0]}>
-          <cylinderGeometry args={[0.06, 0.06, 0.22, 16]} />
-          <meshStandardMaterial color="#555562" metalness={0.9} roughness={0.2} />
-        </mesh>
-      </group>
+      {/* 7. Soft Backplate Ground Contact Shadow Ring */}
+      <mesh position={[0, 0, -0.3]}>
+        <ringGeometry args={[0.9, 1.7, 48]} />
+        <meshBasicMaterial
+          color="#000000"
+          transparent
+          opacity={0.45}
+        />
+      </mesh>
     </group>
   );
 }
 
 /**
- * Main 3D Logo Scene
- * Supports both custom procedural WebGL crystal logo and external Spline embeds.
+ * Main 3D Logo / Play Button Component
  */
-export default function Logo3DScene({ className = "", splineUrl = null }) {
+export default function Logo3DScene({ className = "" }) {
   const [isLit, setIsLit] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
   const containerRef = useRef(null);
 
-  // Pause render loop when scrolled offscreen to conserve GPU and battery
+  // Performance: Pause Canvas rendering when hero scrolls out of view
   useEffect(() => {
     if (!containerRef.current) return;
     const observer = new IntersectionObserver(
@@ -267,43 +264,38 @@ export default function Logo3DScene({ className = "", splineUrl = null }) {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-[300px] sm:h-[400px] lg:h-[480px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
-      aria-hidden="true"
+      className={`relative w-full h-[250px] sm:h-[300px] lg:h-[340px] flex items-center justify-center select-none cursor-pointer ${className}`}
+      aria-label="Interactive 3D Play Button. Click to toggle light."
     >
-      {/* Ambient background volumetric glow */}
+      {/* Dynamic Radial Ambient Glow behind the button */}
       <div
-        className={`absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700 ${
+        className={`absolute w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none transition-all duration-700 ${
           isLit
             ? 'bg-accent/25 opacity-100 scale-105'
-            : 'bg-accent/5 opacity-40 scale-90'
+            : 'bg-accent/5 opacity-30 scale-90'
         }`}
       />
 
-      <Suspense fallback={<Logo3DFallback />}>
+      <Suspense fallback={<Logo3DFallback isLit={isLit} />}>
         {isVisible ? (
           <Canvas
-            dpr={[1, 2]} // Performance capped pixel ratio
-            camera={{ position: [0, 0, 4.2], fov: 42 }}
-            gl={{ antialias: true, alpha: true }}
+            dpr={[1, 2]} // Performance-capped DPR
+            camera={{ position: [0, 0, 3.8], fov: 42 }}
+            gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
             className="relative z-10 w-full h-full"
           >
-            {/* Cinematic studio lighting */}
-            <ambientLight intensity={0.65} />
-            <directionalLight position={[4, 5, 4]} intensity={1.6} color="#FFFFFF" />
-            <directionalLight position={[-4, -2, -3]} intensity={0.8} color="#FAC775" />
-            <directionalLight position={[0, -3, 2]} intensity={0.3} color="#2C2C34" />
+            {/* Studio Key & Rim Lights */}
+            <ambientLight intensity={0.55} />
+            <directionalLight position={[3, 4, 3]} intensity={1.8} color="#FFFFFF" />
+            <directionalLight position={[-3, -2, -2]} intensity={0.7} color="#FAC775" />
+            <directionalLight position={[0, -3, 2]} intensity={0.25} color="#1E1E24" />
 
-            <CrystalPlayLogo isLit={isLit} onToggleLit={() => setIsLit((l) => !l)} />
+            <PlayButtonMesh isLit={isLit} onToggle={() => setIsLit((prev) => !prev)} />
           </Canvas>
         ) : (
-          <Logo3DFallback />
+          <Logo3DFallback isLit={isLit} />
         )}
       </Suspense>
-
-      {/* Interactive indicator hint */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs text-text-muted/60 tracking-wider uppercase pointer-events-none">
-        Interactive 3D • Tap or Move Cursor
-      </div>
     </div>
   );
 }
