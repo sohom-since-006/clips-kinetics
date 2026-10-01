@@ -108,6 +108,18 @@ async function validate() {
     });
   }
 
+  // 6. Validate testimonials.js
+  const { initialTestimonials } = await import('../src/data/testimonials.js');
+  if (!initialTestimonials || initialTestimonials.length < 6) {
+    errors.push(`Expected at least 6 testimonials. Found: ${initialTestimonials?.length || 0}`);
+  } else {
+    initialTestimonials.forEach((test) => {
+      if (!test.id || !test.name || !test.text || !test.rating) {
+        errors.push(`Testimonial "${test.id || 'unknown'}" missing required fields.`);
+      }
+    });
+  }
+
   if (errors.length > 0) {
     console.error(`\nValidation FAILED with ${errors.length} error(s):`);
     errors.forEach((err, idx) => console.error(`  ${idx + 1}. ${err}`));
@@ -118,6 +130,7 @@ async function validate() {
     console.log(`  - ${seenImageIds.size} gallery assets checked.`);
     console.log(`  - ${services.length} core services verified.`);
     console.log(`  - ${shootingPackages?.length || 0} shooting packages verified.`);
+    console.log(`  - ${initialTestimonials.length} client testimonials verified.`);
     console.log(`  - Social links and contact info verified.`);
   }
 }

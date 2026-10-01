@@ -6,6 +6,7 @@ import WorkSection from '../components/WorkSection';
 import ShootingServices from '../components/ShootingServices';
 import ImageGallery from '../components/ImageGallery';
 import Services from '../components/Services';
+import Testimonials from '../components/Testimonials';
 import About from '../components/About';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
@@ -39,6 +40,9 @@ export default function Home() {
 
         {/* Restaurant & Commercial Branding Gallery */}
         <ImageGallery />
+
+        {/* Client Testimonials & Social Proof */}
+        <Testimonials />
 
         {/* About the Editor */}
         <About />
