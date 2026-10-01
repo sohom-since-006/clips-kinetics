@@ -47,7 +47,6 @@
 
 ```bash
 clips-kinetics/
-├── docs/                   # System documentation, PRD & Architecture guides
 ├── public/                 # Optimized WebP assets, covers & profile images
 ├── scripts/
 │   └── validate-data.mjs   # Data integrity validator script

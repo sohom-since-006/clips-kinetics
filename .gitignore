@@ -36,3 +36,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local-only documentation & agent files
+docs/
+.agent/
+.agents/
+.gemini/
+.gsd/
+adapters/
+GSD-STYLE.md
+PROJECT_RULES.md
+PROJECT_CONTEXT.md
+VERSION
+model_capabilities.yaml
+scripts/*.ps1
+scripts/*.sh
+
