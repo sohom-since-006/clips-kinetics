@@ -8,73 +8,73 @@ export const initialTestimonials = [
   {
     id: "test-1",
     name: "Hemendra Singh Chauhan",
-    role: "YouTube Creator & Vlogger",
+    role: "Digital Marketing & Business Creator",
     rating: 5,
     language: "hinglish",
-    text: "Bhai sach me editing next level hai! Pehle mere retention graphs 30% pe drop ho rahe the, Sohom ke edits ke baad seedha 55%+ watch time mil raha hai. Pacing aur sound design ekdum crisp hai.",
-    date: "2 weeks ago"
+    text: "Digital marketing aur business content me audience retention sabse zaroori hota hai. Sohom ne mere long-form business case studies aur funnel videos ko itna engaging banaya ki watch-time aur conversion dono increase ho gaye. Bohot professional editor hai!",
+    date: "18 Nov 2025"
   },
   {
     id: "test-2",
     name: "Kripa Sidara",
-    role: "Fashion & Lifestyle Influencer",
+    role: "Digital Marketer & Instagram Creator",
     rating: 5,
     language: "hinglish",
-    text: "Instagram reels ke liye best editor in Bengal! Trend sync aur text animations itne smooth hote hain ki views double ho gaye. Most importantly, deadlines hamesha follow karta hai.",
-    date: "1 month ago"
+    text: "Instagram marketing ke liye trend-focused editing chahiye hoti hai. Sohom ke transitions, hooks aur dynamic captioning bilkul on-point hain. Content delivery hamesha punctual rehti hai aur engagement double ho gaya!",
+    date: "26 Jan 2026"
   },
   {
     id: "test-3",
     name: "Gaurav Chaudhary",
-    role: "Tech & Product Reviewer",
+    role: "Tech Expert & Digital Entrepreneur",
     rating: 5,
     language: "english",
-    text: "Exceptional turn-around time and top-notch audio cleanup. Sohom transformed raw, shaky multi-camera footage into a sleek, commercial-grade product review video. Highly recommended for creators!",
-    date: "3 weeks ago"
+    text: "Working with Sohom on our tech reviews and digital product presentations has been phenomenal. He has an acute eye for detail, clean pacing, and seamless audio mastering. Highly recommended for entrepreneurs and creators!",
+    date: "04 Mar 2026"
   },
   {
     id: "test-4",
     name: "Jassu Singh",
-    role: "Automobile & Bike Vlogs",
+    role: "Digital Coach & Consultant",
     rating: 5,
     language: "hinglish",
-    text: "Bhai ne bike delivery aur exhaust b-roll ka jo cinematic cut banaya na, goosebumps aa gaye! Speed ramp aur sound effects itne perfect the ki poori reel viral chali gayi. Shandaar kaam!",
-    date: "1 month ago"
+    text: "Maine Sohom se apne coaching masterclass ke liye long video edit karwaya tha. 45 minutes ke content ko itne badhiya visual flow aur graphics ke saath cut kiya ki students ko ek pal bhi boring nahi laga. Shandaar kaam!",
+    date: "19 Dec 2025"
   },
   {
     id: "test-5",
     name: "Pracchi Mehta",
-    role: "Event & Wedding Client",
+    role: "Astrologer, Tarot Reader & Creator",
     rating: 5,
     language: "hinglish",
-    text: "Hamare wedding teaser ke liye Sohom ko hire kiya tha. Colors itne warm aur royal grade kiye hain ki sabhi relatives ne tareef ki. Emotional moments ko bahut sundar tareeqe se capture aur cut kiya.",
-    date: "2 months ago"
+    text: "Mere spiritual event aur workshop ka aftermovie Sohom ne edit kiya tha. Lighting, mystical aura aur emotional music sync itna sundar create kiya ki sabhi clients ne tareef ki. Thank you Sohom!",
+    date: "14 May 2026"
   },
   {
     id: "test-6",
     name: "Gunjan",
-    role: "Brand Marketing Lead",
+    role: "Professional Makeup Artist",
     rating: 5,
     language: "english",
-    text: "We collaborated with Clips Kinetics for our restaurant's promotional launch campaign. The visual rhythm, color grading, and music selection exceeded our expectations. Great communication throughout!",
-    date: "3 weeks ago"
+    text: "I've been working with Sohom for months on all my bridal beauty transformation videos and makeup reels. His color accuracy with skin tones and seamless cut-to-music transitions are top tier. A pleasure to collaborate with!",
+    date: "22 Feb 2026"
   },
   {
     id: "test-7",
     name: "Naveen",
-    role: "Fitness & Training Creator",
+    role: "Marketing Lead & Business Coach",
     rating: 5,
     language: "hinglish",
-    text: "Gym workout edits me heavy bass sync aur impactful transitions chahiye hote hain. Sohom understands the beat drops perfectly. Bhai ka kaam bole toh ekdum zabardast!",
-    date: "Just recently"
+    text: "High-ticket coaching webinars aur client testimonial reels me narrative structure bohot matter karta hai. Sohom understands pacing and story arcs exceptionally well. Kaam me zero compromise!",
+    date: "12 Jul 2026"
   },
   {
     id: "test-8",
     name: "Aniket Roy",
-    role: "Agomoni Festival Shoot",
+    role: "Agomoni Festival Shoot Client",
     rating: 5,
     language: "hinglish",
-    text: "Durga Puja agomoni shoot and reel editing dono Sohom se karwaya tha. Asansol me itna badhiya gimbal movement aur cinematic lighting dene wala editor milna mushkil hai. Bahut badhiya experience raha!",
-    date: "Last month"
+    text: "Durga Puja agomoni cinematic shoot aur reel editing dono Sohom se karwaya tha. Asansol me itna smooth camera stabilization aur cultural mood grading milna mushkil hai. Shandaar experience!",
+    date: "08 Oct 2025"
   }
 ];

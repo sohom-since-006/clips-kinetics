@@ -92,8 +92,8 @@ export const siteConfig = {
     { label: "Work", href: "#work" },
     { label: "Shooting", href: "#shooting" },
     { label: "Services", href: "#services" },
-    { label: "Reviews", href: "#testimonials" },
     { label: "About", href: "#about" },
+    { label: "Reviews", href: "#testimonials" },
     { label: "Contact", href: "#contact" }
   ]
 };

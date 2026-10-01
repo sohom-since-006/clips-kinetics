@@ -41,11 +41,11 @@ export default function Home() {
         {/* Restaurant & Commercial Branding Gallery */}
         <ImageGallery />
 
-        {/* Client Testimonials & Social Proof */}
-        <Testimonials />
-
         {/* About the Editor */}
         <About />
+
+        {/* Client Testimonials & Social Proof (Placed at the end before Contact) */}
+        <Testimonials />
 
         {/* Direct Contact & Social Connections */}
         <Contact />

@@ -52,7 +52,7 @@ export default function Testimonials() {
       rating,
       language: 'custom',
       text: review.trim(),
-      date: 'Just now'
+      date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
     };
 
     // 1. Save and display immediately on website
