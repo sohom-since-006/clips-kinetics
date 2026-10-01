@@ -8,7 +8,7 @@ Works with Google Antigravity (reads `AGENTS.md` from the workspace root), and a
 
 Goal: turn visitors into WhatsApp enquiries. Landing page has a big interactive 3D light bulb (with a play icon), a circular photo, and scroll animations. Work sections play videos inside the site.
 
-Read these before large changes: `PRD.md`, `TRD.md`, `ARCHITECTURE.md`, `BACKEND SCHEMA.md`, `DESIGN SYSTEM.md`, `TESTING.md`, `SECURITY.md`, `CODE_STYLE.md`. If this file conflicts with them, ask the user.
+Read these before large changes: `docs/PRD.md`, `docs/TRD.md`, `docs/ARCHITECTURE.md`, `docs/DESIGN SYSTEM.md`, `docs/TESTING.md`, `docs/SECURITY.md`. If this file conflicts with them, ask the user.
 
 ## 2. The user
 
