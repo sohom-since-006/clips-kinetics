@@ -34,12 +34,12 @@ export const initialTestimonials = [
   },
   {
     id: "test-4",
-    name: "Jassu Singh",
+    name: "Jasu Singh",
     role: "Digital Coach & Consultant",
     rating: 5,
     language: "hinglish",
-    text: "Maine Sohom se apne coaching masterclass ke liye long video edit karwaya tha. 45 minutes ke content ko itne badhiya visual flow aur graphics ke saath cut kiya ki students ko ek pal bhi boring nahi laga. Shandaar kaam!",
-    date: "19 Dec 2025"
+    text: "Maine Sohom se apne ek Introduction video youtube channel ke liye long video edit karwaya tha. 30 minutes ke content ko itne badhiya visual flow aur graphics ke saath cut kiya ki students ko ek pal bhi boring nahi laga. Shandaar kaam!",
+    date: "26 Sep 2025"
   },
   {
     id: "test-5",
@@ -57,7 +57,7 @@ export const initialTestimonials = [
     rating: 5,
     language: "english",
     text: "I've been working with Sohom for months on all my bridal beauty transformation videos and makeup reels. His color accuracy with skin tones and seamless cut-to-music transitions are top tier. A pleasure to collaborate with!",
-    date: "22 Feb 2026"
+    date: "28 Feb 2026"
   },
   {
     id: "test-7",
@@ -66,7 +66,7 @@ export const initialTestimonials = [
     rating: 5,
     language: "hinglish",
     text: "High-ticket coaching webinars aur client testimonial reels me narrative structure bohot matter karta hai. Sohom understands pacing and story arcs exceptionally well. Kaam me zero compromise!",
-    date: "12 Jul 2026"
+    date: "11 Jul 2026"
   },
   {
     id: "test-8",
