@@ -70,23 +70,6 @@ Clips Kinetics was crafted with modern web engineering to guarantee lightning pe
 
 ---
 
-## 🚀 Quick Local Setup
-
-```bash
-# 1. Clone repository
-git clone https://github.com/sohom-since-006/clips-kinetics.git
-
-# 2. Install packages
-npm install
-
-# 3. Start local development server
-npm run dev
-```
-
-Visit `http://localhost:3000` to preview locally.
-
----
-
 ## 📬 Let's Connect
 
 Ready to elevate your visual content or book a shoot?
