@@ -30,7 +30,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.name}
-                className="w-10 h-10 rounded-full bg-bg-elevated hover:bg-zinc-800 border border-border-subtle flex items-center justify-center text-text-secondary hover:text-accent transition-all duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="w-10 h-10 rounded-full bg-bg-elevated hover:bg-bg-surface border border-border-subtle hover:border-accent/40 flex items-center justify-center text-text-secondary hover:text-accent transition-all duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <SocialIcon name={social.icon} className="w-4 h-4" />
               </a>

@@ -4,21 +4,23 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/context/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        'bg-base': '#0B0B10',
-        'bg-surface': '#15151B',
-        'bg-elevated': '#1E1E26',
-        'border-subtle': '#2C2C34',
-        'text-primary': '#FFFFFF',
-        'text-secondary': '#B4B2A9',
-        'text-muted': '#888780',
+        'bg-base': 'rgb(var(--bg-base) / <alpha-value>)',
+        'bg-surface': 'rgb(var(--bg-surface) / <alpha-value>)',
+        'bg-elevated': 'rgb(var(--bg-elevated) / <alpha-value>)',
+        'border-subtle': 'rgb(var(--border-subtle) / <alpha-value>)',
+        'text-primary': 'rgb(var(--text-primary) / <alpha-value>)',
+        'text-secondary': 'rgb(var(--text-secondary) / <alpha-value>)',
+        'text-muted': 'rgb(var(--text-muted) / <alpha-value>)',
         accent: {
-          DEFAULT: '#EF9F27',
-          soft: '#FAC775',
-          deep: '#854F0B',
+          DEFAULT: 'rgb(var(--accent) / <alpha-value>)',
+          soft: 'rgb(var(--accent-soft) / <alpha-value>)',
+          deep: 'rgb(var(--accent-deep) / <alpha-value>)',
         },
         whatsapp: {
           DEFAULT: '#0F6E56',
@@ -26,8 +28,8 @@ module.exports = {
           light: '#9FE1CB',
         },
         badge: {
-          bg: '#085041',
-          dot: '#5DCAA5',
+          bg: 'rgb(var(--badge-bg) / <alpha-value>)',
+          dot: 'rgb(var(--badge-dot) / <alpha-value>)',
         },
         danger: '#E24B4A',
       },
@@ -43,9 +45,9 @@ module.exports = {
         script: ['var(--font-script)', 'cursive'],
       },
       boxShadow: {
-        'amber-glow': '0 0 50px -10px rgba(239, 159, 39, 0.35)',
-        'amber-glow-lg': '0 0 80px -5px rgba(239, 159, 39, 0.45)',
-        'card-subtle': '0 8px 30px rgba(0, 0, 0, 0.35)',
+        'amber-glow': 'var(--amber-glow, 0 0 50px -10px rgba(239, 159, 39, 0.35))',
+        'amber-glow-lg': 'var(--amber-glow-lg, 0 0 80px -5px rgba(239, 159, 39, 0.45))',
+        'card-subtle': 'var(--card-shadow, 0 8px 30px rgba(0, 0, 0, 0.35))',
       },
       keyframes: {
         'pulse-subtle': {

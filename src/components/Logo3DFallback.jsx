@@ -2,61 +2,103 @@ import React from 'react';
 
 /**
  * Logo3DFallback
- * High-fidelity 2D/CSS fallback for when 3D WebGL is loading, disabled, or unsupported.
- * Features the luxury brushed bezel, glowing neon Play button, and ambient amber halo.
+ *
+ * 2D SVG/CSS fallback matching the sculpted metallic play triangle.
+ * Displays when 3D WebGL is loading, disabled, or unsupported.
  */
 export default function Logo3DFallback({ isLit = true, className = "" }) {
   return (
     <div
-      className={`relative flex items-center justify-center w-full h-[250px] sm:h-[300px] lg:h-[340px] select-none ${className}`}
+      className={`relative flex items-center justify-center w-full h-[230px] sm:h-[280px] lg:h-[330px] select-none ${className}`}
       aria-hidden="true"
     >
-      {/* Background radial ambient illumination */}
+      {/* Background radial ambient glow */}
       <div
-        className={`absolute w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full blur-[80px] pointer-events-none transition-all duration-700 ${
-          isLit ? 'bg-accent/25 opacity-100' : 'bg-accent/5 opacity-30'
+        className={`absolute w-44 h-44 sm:w-60 sm:h-60 lg:w-72 lg:h-72 rounded-full pointer-events-none transition-all duration-700 ${
+          isLit
+            ? 'bg-accent/35 blur-[75px] sm:blur-[95px] scale-105 opacity-100'
+            : 'bg-slate-300/40 blur-[50px] scale-90 opacity-40'
         }`}
       />
 
-      {/* Main Button Housing */}
+      {/* Solid metallic play triangle */}
       <div className="relative flex items-center justify-center">
-        {/* Orbital Accent Halo Ring */}
-        <div className="absolute w-52 h-52 sm:w-60 sm:h-60 rounded-full border border-accent/25 animate-spin-slow pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-accent/80 shadow-[0_0_8px_#FAC775]" />
-        </div>
+        <svg
+          viewBox="0 0 120 120"
+          className="w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52"
+          fill="none"
+        >
+          <defs>
+            {/* Drop shadow */}
+            <filter id="play-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation={isLit ? "6" : "4"} />
+              <feOffset dx="0" dy="4" />
+              <feComponentTransfer>
+                <feFuncA type="linear" slope={isLit ? "0.45" : "0.2"} />
+              </feComponentTransfer>
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
 
-        {/* Outer Titanium Bezel Disk */}
-        <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br from-[#2D2B35] via-[#16151B] to-[#0D0C10] p-1.5 shadow-[0_10px_35px_rgba(0,0,0,0.8),inset_0_1px_2px_rgba(255,255,255,0.15)] flex items-center justify-center">
-          
-          {/* Champagne Gold Accent Rim */}
-          <div className="w-full h-full rounded-full border border-accent/40 bg-gradient-to-br from-bg-surface/90 to-bg-base/95 p-3 flex items-center justify-center shadow-inner">
-            
-            {/* Inner Glass Lens Dome with Amber Gradient */}
-            <div className={`relative w-full h-full rounded-full flex items-center justify-center transition-all duration-500 overflow-hidden ${
-              isLit
-                ? 'bg-gradient-to-br from-accent/20 via-transparent to-accent/10 shadow-[0_0_30px_rgba(239,159,39,0.3)]'
-                : 'bg-[#100E14]'
-            }`}>
-              
-              {/* Glass Glare Highlights */}
-              <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-white/10 blur-md pointer-events-none" />
+            {/* Warm glow for lit state */}
+            {isLit && (
+              <filter id="play-glow">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+              </filter>
+            )}
 
-              {/* Glowing Play Triangle */}
-              <svg
-                viewBox="0 0 24 24"
-                className={`w-12 h-12 sm:w-14 sm:h-14 ml-1 transition-all duration-500 ${
-                  isLit
-                    ? 'text-accent drop-shadow-[0_0_15px_#FAC775]'
-                    : 'text-[#4A3215] opacity-40'
-                }`}
-                fill="currentColor"
-              >
-                <polygon points="6 4 20 12 6 20 6 4" />
-              </svg>
-            </div>
+            {/* Gradient for the outer metallic bezel */}
+            <linearGradient id="metal-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={isLit ? "#F6C768" : "#E2E8F0"} />
+              <stop offset="35%" stopColor={isLit ? "#D49B35" : "#CBD5E1"} />
+              <stop offset="70%" stopColor={isLit ? "#B26E08" : "#94A3B8"} />
+              <stop offset="100%" stopColor={isLit ? "#E2A93C" : "#CBD5E1"} />
+            </linearGradient>
 
-          </div>
-        </div>
+            {/* Inner Core Gradient */}
+            <linearGradient id="inner-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={isLit ? "#FFC043" : "#94A3B8"} />
+              <stop offset="100%" stopColor={isLit ? "#FF9500" : "#64748B"} />
+            </linearGradient>
+          </defs>
+
+          {/* Glow layer (only when lit) */}
+          {isLit && (
+            <path
+              d="M34 26 C34 20 40 17 45 20 L94 54 C99 57 99 63 94 66 L45 100 C40 103 34 100 34 94 Z"
+              fill="#FFAE26"
+              opacity="0.3"
+              filter="url(#play-glow)"
+            />
+          )}
+
+          {/* Main outer metallic play triangle */}
+          <path
+            d="M34 26 C34 20 40 17 45 20 L94 54 C99 57 99 63 94 66 L45 100 C40 103 34 100 34 94 Z"
+            fill="url(#metal-grad)"
+            filter="url(#play-shadow)"
+            stroke={isLit ? "#FFE7B8" : "#F8FAFC"}
+            strokeWidth={isLit ? "2" : "1.5"}
+          />
+
+          {/* Recessed inner core */}
+          <path
+            d="M42 36 C42 32 46 30 49 32 L83 56 C86 58 86 62 83 64 L49 88 C46 90 42 88 42 84 Z"
+            fill="url(#inner-grad)"
+            opacity={isLit ? "0.9" : "0.7"}
+          />
+
+          {/* Specular highlight rim */}
+          <path
+            d="M44 26 L90 53"
+            stroke="#FFFFFF"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            opacity={isLit ? "0.45" : "0.6"}
+          />
+        </svg>
       </div>
     </div>
   );

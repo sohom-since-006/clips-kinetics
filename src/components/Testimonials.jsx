@@ -186,7 +186,7 @@ export default function Testimonials() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="testimonial-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-base/80 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-md animate-in fade-in duration-200"
         >
           <div className="relative w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-bg-surface border border-accent/30 shadow-[0_0_35px_rgba(239,159,39,0.15)] max-h-[90vh] overflow-y-auto">
             {/* Close Button */}

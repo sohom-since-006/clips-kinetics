@@ -57,10 +57,10 @@ export default function WorkSection() {
                           key={filter.id}
                           type="button"
                           onClick={() => setActiveFilter(filter.id)}
-                          className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 ${
+                          className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 border ${
                             activeFilter === filter.id
-                              ? 'bg-accent text-accent-deep font-semibold shadow-sm scale-105'
-                              : 'bg-bg-elevated text-text-secondary hover:text-text-primary hover:bg-zinc-800'
+                              ? 'bg-accent text-white border-accent font-semibold shadow-sm scale-105'
+                              : 'bg-bg-elevated text-text-secondary hover:text-text-primary hover:bg-bg-surface border-border-subtle'
                           }`}
                         >
                           {filter.label}

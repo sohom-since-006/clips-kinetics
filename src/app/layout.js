@@ -1,6 +1,7 @@
 import { Montserrat, Open_Sans, Alex_Brush } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '../data/site';
+import { ThemeProvider } from '../context/ThemeContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -79,9 +80,13 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`${montserrat.variable} ${openSans.variable} ${alexBrush.variable}`}
+      data-theme="dark"
+      suppressHydrationWarning
     >
       <body className="bg-bg-base text-text-primary min-h-screen flex flex-col antialiased selection:bg-accent selection:text-bg-base font-body">
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

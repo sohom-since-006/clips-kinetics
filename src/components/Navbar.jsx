@@ -42,7 +42,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {siteConfig.navLinks.map((link) => (
             <a
               key={link.label}
@@ -52,6 +52,7 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+
 
           {/* Quick WhatsApp Hire CTA */}
           <a
@@ -65,21 +66,25 @@ export default function Navbar() {
           </a>
         </nav>
 
-        {/* Mobile Hamburger Toggle */}
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-expanded={mobileMenuOpen}
-          aria-label="Toggle navigation menu"
-          className="md:hidden p-2 text-text-secondary hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md min-w-[44px] min-h-[44px] flex items-center justify-center"
-        >
-          {mobileMenuOpen ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
-        </button>
+        {/* Mobile Header Right Actions */}
+        <div className="flex items-center gap-1.5 md:hidden">
+
+          {/* Mobile Hamburger Toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle navigation menu"
+            className="p-2 text-text-secondary hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md min-w-[44px] min-h-[44px] flex items-center justify-center"
+          >
+            {mobileMenuOpen ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-bg-surface/95 backdrop-blur-xl border-b border-border-subtle px-5 py-5 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden bg-bg-surface/95 backdrop-blur-xl border-b border-border-subtle px-5 py-5 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200 shadow-2xl">
           <nav className="flex flex-col space-y-2">
             {siteConfig.navLinks.map((link) => (
               <a
@@ -93,7 +98,9 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="pt-3 border-t border-border-subtle">
+
+
+          <div className="pt-2">
             <a
               href={getWhatsAppUrl("Hi Sohom, I'd like to hire you for a video project.")}
               target="_blank"
