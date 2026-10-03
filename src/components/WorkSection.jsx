@@ -27,7 +27,7 @@ export default function WorkSection() {
 
     // Smoothly scroll up to the spotlight theater
     if (spotlightRef.current) {
-      spotlightRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      spotlightRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 

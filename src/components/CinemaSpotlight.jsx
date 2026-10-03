@@ -116,7 +116,7 @@ export default function CinemaSpotlight({
                       title={`Cinema Spotlight - ${accessibleLabel}`}
                       allow="autoplay; encrypted-media; fullscreen"
                       allowFullScreen
-                      sandbox="allow-scripts allow-same-origin allow-presentation"
+                      sandbox="allow-scripts allow-same-origin allow-presentation allow-forms"
                       onError={() => setLoadError(true)}
                       className="w-full h-full border-0 absolute inset-0"
                     />
