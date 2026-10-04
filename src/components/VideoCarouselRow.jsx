@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from 'react';
+import { getDriveThumbnailUrl } from '../lib/drive';
 import { ChevronLeftIcon, ChevronRightIcon, PlayIcon, WaveformIcon, SparklesIcon } from './icons';
 
 export default function VideoCarouselRow({
@@ -153,8 +154,21 @@ export default function VideoCarouselRow({
               <div className="absolute inset-0 bg-gradient-to-br from-bg-surface via-bg-elevated to-bg-base" />
               <div className="absolute inset-0 bg-[radial-gradient(#EF9F27_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
 
+              {/* Real Video Thumbnail from Google Drive CDN */}
+              {video.driveId && (
+                <img
+                  src={getDriveThumbnailUrl(video.driveId, 600)}
+                  alt={accessibleBadge}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              )}
+
               {/* Vignette Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-bg-base/90 via-bg-base/30 to-transparent group-hover:opacity-75 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg-base/90 via-bg-base/20 to-transparent group-hover:opacity-75 transition-opacity" />
 
               {/* Centered Golden Play Icon */}
               <div className="absolute inset-0 flex items-center justify-center">

@@ -46,3 +46,15 @@ export function isValidDriveId(driveId) {
   const cleanId = extractDriveId(driveId);
   return /^[a-zA-Z0-9_-]{15,50}$/.test(cleanId);
 }
+
+/**
+ * Returns Google Drive's CDN thumbnail URL for a given file ID or URL.
+ * @param {string} driveId - The Google Drive file ID or share link
+ * @param {number} width - Requested image width in pixels (default: 600)
+ * @returns {string} The direct Google CDN image URL
+ */
+export function getDriveThumbnailUrl(driveId, width = 600) {
+  const cleanId = extractDriveId(driveId);
+  if (!cleanId) return '';
+  return `https://lh3.googleusercontent.com/d/${cleanId}=w${width}`;
+}

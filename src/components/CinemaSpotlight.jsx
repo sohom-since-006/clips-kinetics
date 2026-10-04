@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { getDriveEmbedUrl } from '../lib/drive';
+import { getDriveEmbedUrl, getDriveThumbnailUrl } from '../lib/drive';
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon, WaveformIcon } from './icons';
 
 export default function CinemaSpotlight({
@@ -145,7 +145,20 @@ export default function CinemaSpotlight({
               >
                 {/* Dynamic Vignette & Grid Backdrop */}
                 <div className="absolute inset-0 bg-[radial-gradient(#EF9F27_1px,transparent_1px)] [background-size:24px_24px] opacity-15" />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-base/90 via-transparent to-bg-base/40" />
+                
+                {/* Real Video Thumbnail from Google Drive CDN */}
+                {activeVideo?.driveId && (
+                  <img
+                    src={getDriveThumbnailUrl(activeVideo.driveId, 1000)}
+                    alt={accessibleLabel}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                )}
+
+                <div className="absolute inset-0 bg-gradient-to-t from-bg-base/90 via-bg-base/30 to-bg-base/40 group-hover:opacity-75 transition-opacity" />
 
                 {/* Golden Pulsing Play Button */}
                 <div className="relative flex flex-col items-center gap-4 z-10">
